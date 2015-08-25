@@ -61,12 +61,13 @@ class Ident::Client {
     }
 
     submethod BUILD(:$!host)  {}
-    submethod DESTROY {
-        $!socket.close:
-    }
 
     method connect() {
         $!socket = IO::Socket::INET.new(:host($!host), :port(113));
+    }
+
+    method close() {
+        $!socket.close:
     }
 
     submethod parse_response(Str $response) {
